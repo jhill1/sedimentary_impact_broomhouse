@@ -30,15 +30,13 @@ chk = CheckpointFile('bathymetry.h5','r')
 bathymetry2d = chk.load_function(thetis_mesh,'bathymetry')
 chk.close()
 t_start = params.start_time
-# How long does your simulations run for (s)
-t_end = params.end_time #40 days (i.e. 30 days of analysis)
-# how often are exports produced in the main run?
+t_end = params.end_time
 t_export = params.output_time
 
 t_n = int((t_end - t_start) / t_export) + 1
 thetis_times = t_start + t_export*np.arange(t_n)
 
-# --- create solver ---
+# --- create dummy solver ---
 solverObj = solver2d.FlowSolver2d(thetis_mesh, Constant(10))
 options = solverObj.options
 options.simulation_export_time = t_export
